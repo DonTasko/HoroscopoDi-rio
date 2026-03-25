@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astro Diário</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #1a0028;
+      color: white;
+    }
+    header {
+      background: linear-gradient(90deg, #4b0082, #8a2be2);
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #2d0142;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      text-align: center;
+    }
+    .page {
+      display: none;
+      padding: 20px;
+    }
+    .active {
+      display: block;
+    }
+    .sign-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .sign {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .wallpaper {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>Astro Diário</header>
+
+<div id="horoscopo" class="page active">
+  <h2>Horóscopo Diário</h2>
+  <div class="sign-grid">
+    <div class="sign">Áries</div>
+    <div class="sign">Touro</div>
+    <div class="sign">Gémeos</div>
+    <div class="sign">Caranguejo</div>
+    <div class="sign">Leão</div>
+    <div class="sign">Virgem</div>
+    <div class="sign">Balança</div>
+    <div class="sign">Escorpião</div>
+    <div class="sign">Sagitário</div>
+    <div class="sign">Capricórnio</div>
+    <div class="sign">Aquário</div>
+    <div class="sign">Peixes</div>
+  </div>
+</div>
+
+<div id="frases" class="page">
+  <h2>Frase Motivacional do Dia</h2>
+  <p>"Acredita na tua energia, ela guia-te para o lugar certo."</p>
+</div>
+
+<div id="wallpapers" class="page">
+  <h2>Wallpapers Motivacionais</h2>
+  <img src="https://picsum.photos/400/700?random=1" class="wallpaper" />
+  <img src="https://picsum.photos/400/700?random=2" class="wallpaper" />
+  <img src="https://picsum.photos/400/700?random=3" class="wallpaper" />
+</div>
+
+<div id="descobrir" class="page">
+  <h2>Descobrir</h2>
+  <p>Artigos e curiosidades astrológicas em breve...</p>
+</div>
+
+<nav>
+  <a href="#" onclick="show('horoscopo')">Horóscopo</a>
+  <a href="#" onclick="show('frases')">Frases</a>
+  <a href="#" onclick="show('wallpapers')">Wallpapers</a>
+  <a href="#" onclick="show('descobrir')">Descobrir</a>
+</nav>
+
+<script>
+  function show(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(page).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
