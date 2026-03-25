@@ -1,1 +1,156 @@
+{
+  "quotes": [
+    "A tua energia encontra o caminho quando o coração escolhe com coragem.",
+    "O universo sussurra para quem aprende a escutar com calma.",
+    "Nem toda resposta vem rápido; algumas chegam como luz suave.",
+    "Quem honra a própria essência atrai o que realmente combina.",
+    "A intuição floresce quando a mente desacelera."
+  ],
+  "signs": [
+    {
+      "name": "Áries",
+      "symbol": "♈",
+      "dates": "21 mar — 19 abr",
+      "vibe": "Coragem e atitude",
+      "summary": "Hoje sua energia pede movimento, clareza e iniciativa. O melhor resultado vem quando você age com foco, não com pressa.",
+      "love": "Conversas sinceras podem reacender a conexão. Evite impulsividade em temas delicados.",
+      "work": "Momento favorável para tomar a frente de uma ideia e mostrar sua liderança.",
+      "wellness": "Canalize sua energia em algo criativo ou em uma caminhada revigorante.",
+      "advice": "Aja com coragem, mas escolha bem onde colocar sua força.",
+      "color": "vermelho rubi"
+    },
+    {
+      "name": "Touro",
+      "symbol": "♉",
+      "dates": "20 abr — 20 mai",
+      "vibe": "Estabilidade e prazer",
+      "summary": "O dia favorece conforto, constância e decisões práticas. Você cresce quando respeita seu tempo interno.",
+      "love": "Gestos simples terão mais valor do que promessas grandiosas.",
+      "work": "Boa fase para organizar finanças e estruturar tarefas com calma.",
+      "wellness": "Desacelere. Seu corpo responde melhor ao cuidado do que à cobrança.",
+      "advice": "A firmeza tranquila será sua maior vantagem hoje.",
+      "color": "verde esmeralda"
+    },
+    {
+      "name": "Gêmeos",
+      "symbol": "♊",
+      "dates": "21 mai — 20 jun",
+      "vibe": "Ideias e movimento",
+      "summary": "Seu brilho está na comunicação. Novas ideias surgem rápido, então anote tudo e escolha com inteligência.",
+      "love": "Um diálogo leve pode abrir portas para mais intimidade.",
+      "work": "Networking, mensagens e negociações ganham força no seu dia.",
+      "wellness": "Evite excesso de estímulos; uma pausa estratégica clareia a mente.",
+      "advice": "Nem toda ideia precisa virar ação imediatamente.",
+      "color": "amarelo solar"
+    },
+    {
+      "name": "Câncer",
+      "symbol": "♋",
+      "dates": "21 jun — 22 jul",
+      "vibe": "Intuição e acolhimento",
+      "summary": "Seu coração percebe mais do que os olhos mostram. Confie na sua sensibilidade, mas preserve seus limites.",
+      "love": "A proximidade emocional cresce quando você expressa o que sente sem medo.",
+      "work": "Escute sua intuição antes de aceitar compromissos desgastantes.",
+      "wellness": "Procure ambientes tranquilos e pessoas que transmitam segurança.",
+      "advice": "Cuidar de si também é um ato de amor.",
+      "color": "prata lunar"
+    },
+    {
+      "name": "Leão",
+      "symbol": "♌",
+      "dates": "23 jul — 22 ago",
+      "vibe": "Brilho e presença",
+      "summary": "Seu magnetismo está alto. Hoje você pode influenciar positivamente o ambiente quando age com generosidade.",
+      "love": "Romance, carisma e reciprocidade favorecem encontros e reconexões.",
+      "work": "Hora de mostrar talento sem exagerar no controle.",
+      "wellness": "Faça algo que reacenda sua autoestima e te lembre do seu valor.",
+      "advice": "Brilhe sem apagar ninguém.",
+      "color": "dourado"
+    },
+    {
+      "name": "Virgem",
+      "symbol": "♍",
+      "dates": "23 ago — 22 set",
+      "vibe": "Ordem e clareza",
+      "summary": "O dia combina com revisão, organização e pequenos ajustes que geram grandes resultados.",
+      "love": "Mais escuta e menos cobrança: essa é a chave para relações mais leves.",
+      "work": "Tarefas analíticas e planejamento estão favorecidos.",
+      "wellness": "Seu bem-estar melhora quando você simplifica a rotina.",
+      "advice": "Não transforme perfeição em peso.",
+      "color": "bege claro"
+    },
+    {
+      "name": "Libra",
+      "symbol": "♎",
+      "dates": "23 set — 22 out",
+      "vibe": "Equilíbrio e charme",
+      "summary": "Seu poder hoje está em harmonizar pessoas, ideias e escolhas. Elegância emocional será diferencial.",
+      "love": "O afeto floresce quando há beleza, delicadeza e reciprocidade.",
+      "work": "Negociações e decisões em parceria podem render bons frutos.",
+      "wellness": "Invista em leveza, arte e um espaço visualmente agradável.",
+      "advice": "Escolher a paz também é uma decisão poderosa.",
+      "color": "rosa quartzo"
+    },
+    {
+      "name": "Escorpião",
+      "symbol": "♏",
+      "dates": "23 out — 21 nov",
+      "vibe": "Intensidade e transformação",
+      "summary": "Hoje você enxerga o que está por trás das aparências. Use isso com sabedoria e não com desconfiança.",
+      "love": "A profundidade emocional pode fortalecer vínculos reais.",
+      "work": "Excelente momento para focar, investigar e concluir algo importante.",
+      "wellness": "Liberte tensões em vez de guardá-las por dentro.",
+      "advice": "Transformação começa quando você aceita sentir.",
+      "color": "vinho profundo"
+    },
+    {
+      "name": "Sagitário",
+      "symbol": "♐",
+      "dates": "22 nov — 21 dez",
+      "vibe": "Expansão e entusiasmo",
+      "summary": "Seu espírito busca novidade. O dia favorece liberdade, leveza e visão de futuro.",
+      "love": "Conexões crescem quando há espontaneidade e verdade.",
+      "work": "Bom para explorar novas possibilidades e sair do modo automático.",
+      "wellness": "Seu corpo e mente pedem movimento, ar livre e horizonte.",
+      "advice": "Siga em frente, mas com direção.",
+      "color": "azul royal"
+    },
+    {
+      "name": "Capricórnio",
+      "symbol": "♑",
+      "dates": "22 dez — 19 jan",
+      "vibe": "Disciplina e construção",
+      "summary": "Você está em sintonia com resultados sólidos. O dia favorece responsabilidade e estratégia.",
+      "love": "A demonstração de compromisso vale mais que palavras vazias.",
+      "work": "Assuntos profissionais importantes podem avançar com constância.",
+      "wellness": "Descanse sem culpa: produtividade também depende de pausa.",
+      "advice": "Consistência supera pressa.",
+      "color": "grafite"
+    },
+    {
+      "name": "Aquário",
+      "symbol": "♒",
+      "dates": "20 jan — 18 fev",
+      "vibe": "Inovação e autenticidade",
+      "summary": "Sua mente está original e voltada para o novo. O dia convida à liberdade com propósito.",
+      "love": "Seja transparente sobre o que precisa para se sentir leve na relação.",
+      "work": "Ideias diferentes podem gerar soluções brilhantes.",
+      "wellness": "Faça algo fora da rotina para oxigenar a mente.",
+      "advice": "Seu diferencial é justamente ser você.",
+      "color": "turquesa"
+    },
+    {
+      "name": "Peixes",
+      "symbol": "♓",
+      "dates": "19 fev — 20 mar",
+      "vibe": "Sensibilidade e imaginação",
+      "summary": "Sua percepção está refinada. O dia pede escuta interior, criatividade e gentileza com seus próprios limites.",
+      "love": "A conexão emocional pode se aprofundar com ternura e presença real.",
+      "work": "Confie no seu senso criativo, mas mantenha uma direção prática.",
+      "wellness": "Música, descanso e silêncio podem renovar sua energia.",
+      "advice": "Intuição também precisa de chão.",
+      "color": "lavanda"
+    }
+  ]
+}
 
