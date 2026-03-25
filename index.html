@@ -9,1003 +9,18 @@
   <title>Astro Diário</title>
   <meta
     name="description"
-    content="Descubra seu horóscopo diário, frase cósmica, compatibilidade e wallpapers em um app moderno e envolvente."
+    content="Descubra seu horóscopo diário, frases cósmicas, compatibilidades e wallpapers em uma experiência moderna e envolvente."
   />
   <meta name="theme-color" content="#0b1020" />
 
-  <style>
-    :root {
-      --bg: #090d18;
-      --bg-2: #0f1630;
-      --surface: rgba(21, 26, 51, 0.72);
-      --surface-strong: rgba(27, 34, 66, 0.92);
-      --stroke: rgba(255, 255, 255, 0.09);
-      --text: #f7f8ff;
-      --muted: #b8bdd8;
-      --primary: #8b5cf6;
-      --primary-2: #b388ff;
-      --accent: #f6c453;
-      --success: #5eead4;
-      --danger: #fb7185;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 18px;
-      --radius-sm: 14px;
-      --blur: blur(16px);
-      --max: 1180px;
-      --nav-h: 84px;
-    }
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.22), transparent 24%),
-        radial-gradient(circle at 85% 15%, rgba(179, 136, 255, 0.18), transparent 24%),
-        radial-gradient(circle at 50% 80%, rgba(246, 196, 83, 0.08), transparent 18%),
-        linear-gradient(180deg, #060913 0%, #0b1020 30%, #0d1430 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    body::before {
-      background-image:
-        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.8) 0, transparent 100%),
-        radial-gradient(1.5px 1.5px at 70% 20%, rgba(255,255,255,.65) 0, transparent 100%),
-        radial-gradient(2px 2px at 40% 75%, rgba(255,255,255,.75) 0, transparent 100%),
-        radial-gradient(1.5px 1.5px at 90% 60%, rgba(255,255,255,.55) 0, transparent 100%),
-        radial-gradient(1.5px 1.5px at 10% 85%, rgba(255,255,255,.6) 0, transparent 100%);
-      opacity: .4;
-      animation: twinkle 8s linear infinite alternate;
-    }
-
-    body::after {
-      background:
-        radial-gradient(circle at center, rgba(139, 92, 246, 0.06), transparent 45%);
-      filter: blur(40px);
-    }
-
-    @keyframes twinkle {
-      0% { opacity: .25; transform: scale(1); }
-      100% { opacity: .45; transform: scale(1.03); }
-    }
-
-    .app-shell {
-      width: min(100%, var(--max));
-      margin: 0 auto;
-      padding: 18px 16px calc(var(--nav-h) + 32px);
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      margin: 0 auto 16px;
-      padding-top: env(safe-area-inset-top, 0);
-      backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
-    }
-
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      margin-top: 10px;
-      border: 1px solid var(--stroke);
-      border-radius: 999px;
-      background: rgba(10, 14, 28, 0.55);
-      box-shadow: var(--shadow);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .brand-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at 30% 30%, #f6c453 0%, #b388ff 36%, #7c4dff 68%, #121833 100%);
-      box-shadow: 0 0 30px rgba(179, 136, 255, 0.25);
-      font-size: 20px;
-    }
-
-    .brand-text {
-      min-width: 0;
-    }
-
-    .brand-text strong {
-      display: block;
-      font-size: 1rem;
-      letter-spacing: 0.2px;
-    }
-
-    .brand-text span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.84rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .top-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .icon-btn {
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: transform .25s ease, background .25s ease, border-color .25s ease;
-    }
-
-    .icon-btn:hover,
-    .icon-btn:focus-visible {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.18);
-      outline: none;
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 18px;
-      padding: 24px;
-      border-radius: var(--radius-xl);
-      background:
-        linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(11, 16, 32, 0.7)),
-        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      isolation: isolate;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      right: -60px;
-      top: -70px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(246, 196, 83, 0.22), transparent 65%);
-      z-index: -1;
-      filter: blur(5px);
-      animation: floatOrb 8s ease-in-out infinite;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      left: -100px;
-      bottom: -120px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(179, 136, 255, 0.22), transparent 65%);
-      z-index: -1;
-      animation: floatOrb 10s ease-in-out infinite reverse;
-    }
-
-    @keyframes floatOrb {
-      0%, 100% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(10px) translateX(8px); }
-    }
-
-    .hero-copy {
-      align-self: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 1px solid rgba(246, 196, 83, 0.18);
-      border-radius: 999px;
-      background: rgba(246, 196, 83, 0.08);
-      color: #ffe3a3;
-      font-size: 0.82rem;
-      margin-bottom: 14px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 4vw, 4rem);
-      line-height: .98;
-      margin: 0 0 14px;
-      letter-spacing: -1px;
-    }
-
-    .hero h1 .gradient {
-      background: linear-gradient(90deg, #fff, #d8c6ff 42%, #f6c453 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      margin: 0 0 18px;
-      max-width: 62ch;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.65;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: 0;
-      cursor: pointer;
-      border-radius: 999px;
-      padding: 14px 18px;
-      font-weight: 700;
-      font-size: .96rem;
-      transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
-    }
-
-    .btn:hover,
-    .btn:focus-visible {
-      transform: translateY(-2px);
-      outline: none;
-    }
-
-    .btn-primary {
-      color: #0b1020;
-      background: linear-gradient(135deg, #f6c453, #ffe59b);
-      box-shadow: 0 12px 30px rgba(246, 196, 83, .25);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-side {
-      display: grid;
-      gap: 14px;
-      align-content: center;
-    }
-
-    .glass-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
-      box-shadow: var(--shadow);
-    }
-
-    .daily-card {
-      padding: 18px;
-    }
-
-    .daily-card .label {
-      font-size: .82rem;
-      color: #dccaff;
-      margin-bottom: 10px;
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .daily-card strong {
-      font-size: 1.18rem;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .daily-card p {
-      color: var(--muted);
-      line-height: 1.6;
-      margin: 0;
-      font-size: .95rem;
-    }
-
-    .mini-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .stat {
-      padding: 14px;
-      text-align: center;
-      border-radius: 20px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--stroke);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 4px;
-      color: #fff;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .section {
-      margin-top: 22px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 14px;
-    }
-
-    .section-title {
-      margin: 0;
-      font-size: clamp(1.2rem, 2vw, 1.8rem);
-      letter-spacing: -.5px;
-    }
-
-    .section-subtitle {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .section-link {
-      color: #dbc9ff;
-      text-decoration: none;
-      font-size: .92rem;
-      white-space: nowrap;
-    }
-
-    .grid-main {
-      display: grid;
-      grid-template-columns: 1.35fr .9fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .sign-panel {
-      padding: 18px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-      box-shadow: var(--shadow);
-    }
-
-    .sign-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .sign-card {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
-        rgba(16, 21, 43, 0.7);
-      border-radius: 20px;
-      padding: 16px 14px;
-      text-align: left;
-      color: var(--text);
-      cursor: pointer;
-      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, background .3s ease;
-      min-height: 112px;
-    }
-
-    .sign-card::before {
-      content: "";
-      position: absolute;
-      inset: auto -20px -35px auto;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(139, 92, 246, .25), transparent 65%);
-      transition: transform .35s ease;
-    }
-
-    .sign-card:hover,
-    .sign-card:focus-visible {
-      transform: translateY(-4px);
-      border-color: rgba(179, 136, 255, 0.35);
-      box-shadow: 0 16px 32px rgba(0,0,0,.22);
-      outline: none;
-    }
-
-    .sign-card:hover::before,
-    .sign-card:focus-visible::before {
-      transform: scale(1.12);
-    }
-
-    .sign-symbol {
-      font-size: 1.5rem;
-      margin-bottom: 12px;
-      display: inline-block;
-    }
-
-    .sign-card strong {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 4px;
-    }
-
-    .sign-card span {
-      display: block;
-      color: var(--muted);
-      font-size: .82rem;
-    }
-
-    .aside-stack {
-      display: grid;
-      gap: 18px;
-    }
-
-    .quote-card,
-    .discover-card,
-    .wallpaper-card,
-    .ad-card,
-    .compat-card {
-      padding: 18px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-      box-shadow: var(--shadow);
-    }
-
-    .quote-mark {
-      font-size: 2.2rem;
-      line-height: 1;
-      color: #f6c453;
-      opacity: .9;
-    }
-
-    .quote-text {
-      margin: 10px 0 12px;
-      font-size: 1.06rem;
-      line-height: 1.7;
-      color: #f7f4ff;
-    }
-
-    .quote-meta {
-      color: var(--muted);
-      font-size: .88rem;
-    }
-
-    .discover-list,
-    .wallpaper-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .discover-item,
-    .wallpaper-item {
-      border: 1px solid rgba(255,255,255,.07);
-      background: rgba(255,255,255,.04);
-      border-radius: 18px;
-      padding: 14px;
-      transition: transform .25s ease, border-color .25s ease;
-    }
-
-    .discover-item:hover,
-    .wallpaper-item:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.16);
-    }
-
-    .discover-item strong,
-    .wallpaper-item strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: .96rem;
-    }
-
-    .discover-item span,
-    .wallpaper-item span {
-      color: var(--muted);
-      font-size: .88rem;
-      line-height: 1.5;
-    }
-
-    .wallpaper-preview {
-      height: 94px;
-      border-radius: 16px;
-      margin-bottom: 10px;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(246,196,83,.35), transparent 18%),
-        radial-gradient(circle at 80% 20%, rgba(179,136,255,.3), transparent 20%),
-        linear-gradient(135deg, #1d2550, #0b1020 65%);
-      border: 1px solid rgba(255,255,255,0.08);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .wallpaper-preview::after {
-      content: "✦ ✦ ✦";
-      position: absolute;
-      right: 14px;
-      bottom: 10px;
-      letter-spacing: 4px;
-      opacity: .7;
-      color: rgba(255,255,255,.7);
-      font-size: .85rem;
-    }
-
-    .compat-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-
-    .compat-row:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .compat-pair {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .compat-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: rgba(139,92,246,.16);
-      border: 1px solid rgba(179,136,255,.2);
-      font-size: 1rem;
-    }
-
-    .compat-score {
-      font-weight: 800;
-      color: #ffe69d;
-    }
-
-    .ad-card {
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, rgba(94,234,212,.08), rgba(139,92,246,.1)),
-        rgba(255,255,255,.02);
-    }
-
-    .ad-card::before {
-      content: "Publicidade";
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      font-size: .72rem;
-      color: #c8d0ff;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.1);
-      background: rgba(255,255,255,.05);
-    }
-
-    .ad-slot {
-      margin-top: 28px;
-      min-height: 110px;
-      border-radius: 20px;
-      border: 1px dashed rgba(255,255,255,.18);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 20px;
-      color: var(--muted);
-      background: rgba(255,255,255,.03);
-    }
-
-    .ad-slot strong {
-      display: block;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .ad-meta {
-      margin-top: 10px;
-      font-size: .83rem;
-      color: #9fb6d6;
-    }
-
-    .section-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .feature-card {
-      padding: 18px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 12px;
-      background: rgba(139,92,246,.16);
-      border: 1px solid rgba(179,136,255,.24);
-      font-size: 1.2rem;
-    }
-
-    .feature-card h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-    }
-
-    .feature-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: .92rem;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      left: 50%;
-      bottom: max(10px, env(safe-area-inset-bottom, 10px));
-      transform: translateX(-50%);
-      width: min(100% - 20px, 760px);
-      z-index: 40;
-      padding: 10px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,.1);
-      background: rgba(8, 12, 24, 0.76);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 20px 40px rgba(0,0,0,.35);
-    }
-
-    .bottom-nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-
-    .bottom-nav a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      color: var(--muted);
-      padding: 10px 8px;
-      border-radius: 18px;
-      font-size: .78rem;
-      transition: color .25s ease, background .25s ease, transform .25s ease;
-    }
-
-    .bottom-nav a.active,
-    .bottom-nav a:hover,
-    .bottom-nav a:focus-visible {
-      color: var(--text);
-      background: linear-gradient(180deg, rgba(139,92,246,.18), rgba(255,255,255,.04));
-      transform: translateY(-2px);
-      outline: none;
-    }
-
-    .nav-emoji {
-      font-size: 1.12rem;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(4, 7, 16, 0.72);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      display: flex;
-      align-items: end;
-      justify-content: center;
-      padding: 18px;
-      z-index: 80;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease;
-    }
-
-    .modal.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-sheet {
-      width: min(100%, 680px);
-      max-height: min(88vh, 780px);
-      overflow: auto;
-      border-radius: 30px;
-      border: 1px solid rgba(255,255,255,.1);
-      background:
-        linear-gradient(180deg, rgba(20, 25, 46, .98), rgba(11, 16, 32, .98));
-      box-shadow: 0 30px 60px rgba(0,0,0,.45);
-      padding: 22px;
-      transform: translateY(30px);
-      transition: transform .35s ease;
-    }
-
-    .modal.open .modal-sheet {
-      transform: translateY(0);
-    }
-
-    .modal-head {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 12px;
-    }
-
-    .modal-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .modal-symbol {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      font-size: 1.5rem;
-      background: rgba(139,92,246,.16);
-      border: 1px solid rgba(179,136,255,.25);
-    }
-
-    .modal h2 {
-      margin: 0 0 4px;
-      font-size: 1.4rem;
-    }
-
-    .modal-sub {
-      color: var(--muted);
-      font-size: .9rem;
-      margin: 0;
-    }
-
-    .modal-close {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      color: var(--text);
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .forecast-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .forecast-box {
-      border-radius: 20px;
-      padding: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .forecast-box strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: .94rem;
-    }
-
-    .forecast-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: .9rem;
-    }
-
-    .full-box {
-      margin-top: 12px;
-      border-radius: 22px;
-      padding: 18px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .full-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .chip {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      color: var(--text);
-      font-size: .86rem;
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      bottom: calc(var(--nav-h) + 22px);
-      z-index: 100;
-      background: rgba(10, 16, 30, .88);
-      border: 1px solid rgba(255,255,255,.1);
-      color: var(--text);
-      padding: 12px 16px;
-      border-radius: 999px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease, transform .3s ease;
-      box-shadow: var(--shadow);
-      font-size: .92rem;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    @media (max-width: 1024px) {
-      .hero,
-      .grid-main,
-      .section-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-side {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .app-shell {
-        padding-inline: 12px;
-      }
-
-      .topbar-inner {
-        padding: 12px 14px;
-      }
-
-      .hero {
-        padding: 20px;
-        border-radius: 24px;
-      }
-
-      .hero-side,
-      .mini-stats,
-      .forecast-grid,
-      .section-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .sign-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-header {
-        align-items: start;
-        flex-direction: column;
-      }
-
-      .modal-sheet {
-        padding: 18px;
-        border-radius: 26px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .sign-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-
-      .sign-card {
-        min-height: 100px;
-        padding: 14px 12px;
-      }
-
-      .bottom-nav a {
-        font-size: .72rem;
-      }
-
-      .brand-text span {
-        display: none;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -1020,8 +35,8 @@
         </div>
 
         <div class="top-actions">
-          <button class="icon-btn" id="btnShare" aria-label="Compartilhar">↗</button>
-          <button class="icon-btn" id="btnTheme" aria-label="Mudar tema">☾</button>
+          <button class="icon-btn" id="btnShare" aria-label="Compartilhar app">↗</button>
+          <button class="icon-btn" id="btnTheme" aria-label="Alternar tema">☾</button>
         </div>
       </div>
     </header>
@@ -1029,14 +44,16 @@
     <main>
       <section class="hero reveal" id="home">
         <div class="hero-copy">
-          <div class="eyebrow">🌙 Atualizado hoje • energia cósmica em alta</div>
+          <div class="eyebrow">🌙 Atualizado diariamente • energia cósmica em destaque</div>
+
           <h1>
             Seu universo começa com
             <span class="gradient">um toque nas estrelas</span>
           </h1>
+
           <p>
-            Escolha seu signo, descubra a previsão do dia, salve frases inspiradoras
-            e explore wallpapers com uma experiência moderna, fluida e envolvente.
+            Escolha seu signo, descubra sua previsão do dia, inspire-se com frases
+            cósmicas e explore conteúdos criados para fazer você voltar todos os dias.
           </p>
 
           <div class="hero-actions">
@@ -1048,17 +65,16 @@
         <div class="hero-side">
           <div class="daily-card glass-card">
             <div class="label">✨ Previsão em destaque</div>
-            <strong id="featuredSignTitle">Leão — brilho e iniciativa</strong>
+            <strong id="featuredSignTitle">Carregando previsão...</strong>
             <p id="featuredSignText">
-              Hoje é um ótimo momento para tomar a frente de decisões importantes.
-              Confie na sua presença e use sua energia com generosidade.
+              Aguarde um instante enquanto carregamos a energia do dia.
             </p>
           </div>
 
           <div class="mini-stats">
             <div class="stat glass-card">
               <strong>12</strong>
-              <span>signos ativos</span>
+              <span>signos</span>
             </div>
             <div class="stat glass-card">
               <strong>+1</strong>
@@ -1078,29 +94,31 @@
             <div>
               <h2 class="section-title">Horóscopo diário</h2>
               <p class="section-subtitle">
-                Toque no seu signo para abrir uma leitura rápida e elegante.
+                Toque no seu signo para abrir sua leitura completa.
               </p>
             </div>
-            <a class="section-link" href="#frases">Ver frases cósmicas</a>
+            <a class="section-link" href="#frases">Ver frase do dia</a>
           </div>
 
-          <div class="sign-grid" id="signGrid"></div>
+          <div class="sign-grid" id="signGrid">
+            <div class="loading">Carregando signos...</div>
+          </div>
         </div>
 
         <aside class="aside-stack">
           <div class="quote-card reveal" id="frases">
             <div class="quote-mark">“</div>
             <div class="quote-text" id="dailyQuote">
-              A tua energia encontra o caminho quando o coração escolhe com coragem.
+              Carregando frase cósmica...
             </div>
             <div class="quote-meta">Frase cósmica do dia</div>
           </div>
 
           <div class="compat-card reveal">
-            <div class="section-header" style="margin-bottom:8px;">
+            <div class="section-header" style="margin-bottom: 8px;">
               <div>
-                <h2 class="section-title" style="font-size:1.12rem;">Compatibilidades</h2>
-                <p class="section-subtitle">Combinações em destaque hoje</p>
+                <h2 class="section-title" style="font-size: 1.12rem;">Compatibilidades</h2>
+                <p class="section-subtitle">Combinações energéticas em destaque</p>
               </div>
             </div>
 
@@ -1109,7 +127,7 @@
                 <div class="compat-badge">♈</div>
                 <div>
                   <strong>Áries + Leão</strong>
-                  <div class="section-subtitle" style="margin:2px 0 0;">química intensa</div>
+                  <div class="section-subtitle" style="margin: 2px 0 0;">química intensa</div>
                 </div>
               </div>
               <div class="compat-score">96%</div>
@@ -1120,7 +138,7 @@
                 <div class="compat-badge">♉</div>
                 <div>
                   <strong>Touro + Virgem</strong>
-                  <div class="section-subtitle" style="margin:2px 0 0;">conexão estável</div>
+                  <div class="section-subtitle" style="margin: 2px 0 0;">conexão estável</div>
                 </div>
               </div>
               <div class="compat-score">93%</div>
@@ -1131,7 +149,7 @@
                 <div class="compat-badge">♓</div>
                 <div>
                   <strong>Peixes + Câncer</strong>
-                  <div class="section-subtitle" style="margin:2px 0 0;">sintonia emocional</div>
+                  <div class="section-subtitle" style="margin: 2px 0 0;">sintonia emocional</div>
                 </div>
               </div>
               <div class="compat-score">98%</div>
@@ -1139,9 +157,9 @@
           </div>
 
           <div class="ad-card reveal">
-            <h2 class="section-title" style="font-size:1.12rem;">Espaço para anúncio</h2>
+            <h2 class="section-title" style="font-size: 1.12rem;">Espaço para anúncio</h2>
             <p class="section-subtitle">
-              Container preparado para integração nativa com AdMob no app wrapper.
+              Área pronta para integração com AdMob via app wrapper.
             </p>
 
             <div
@@ -1152,8 +170,8 @@
             >
               <div>
                 <strong>AdMob Banner Placeholder</strong>
-                <div>Substitua este bloco pelo anúncio nativo do app.</div>
-                <div class="ad-meta">ID sugerido: top-banner</div>
+                <div>Este bloco pode ser substituído por um banner nativo.</div>
+                <div class="ad-meta">slot: top-banner</div>
               </div>
             </div>
           </div>
@@ -1175,31 +193,37 @@
           <div class="wallpaper-card">
             <div class="wallpaper-preview"></div>
             <strong>Lua dourada</strong>
-            <span class="section-subtitle">
+            <div class="section-subtitle">
               Fundo cósmico com brilho astral e atmosfera suave.
-            </span>
+            </div>
           </div>
 
           <div class="wallpaper-card">
-            <div class="wallpaper-preview" style="background:
-              radial-gradient(circle at 25% 35%, rgba(255,255,255,.28), transparent 14%),
-              radial-gradient(circle at 78% 28%, rgba(246,196,83,.22), transparent 18%),
-              linear-gradient(135deg, #111935, #261850 62%, #0b1020);"></div>
+            <div
+              class="wallpaper-preview"
+              style="background:
+                radial-gradient(circle at 25% 35%, rgba(255,255,255,.28), transparent 14%),
+                radial-gradient(circle at 78% 28%, rgba(246,196,83,.22), transparent 18%),
+                linear-gradient(135deg, #111935, #261850 62%, #0b1020);"
+            ></div>
             <strong>Constelação violeta</strong>
-            <span class="section-subtitle">
+            <div class="section-subtitle">
               Visual moderno com profundidade e contraste premium.
-            </span>
+            </div>
           </div>
 
           <div class="wallpaper-card">
-            <div class="wallpaper-preview" style="background:
-              radial-gradient(circle at 18% 24%, rgba(94,234,212,.2), transparent 18%),
-              radial-gradient(circle at 76% 18%, rgba(179,136,255,.28), transparent 20%),
-              linear-gradient(135deg, #0f1732, #111c42 54%, #070b16);"></div>
+            <div
+              class="wallpaper-preview"
+              style="background:
+                radial-gradient(circle at 18% 24%, rgba(94,234,212,.2), transparent 18%),
+                radial-gradient(circle at 76% 18%, rgba(179,136,255,.28), transparent 20%),
+                linear-gradient(135deg, #0f1732, #111c42 54%, #070b16);"
+            ></div>
             <strong>Energia noturna</strong>
-            <span class="section-subtitle">
-              Ideal para desbloquear com anúncio recompensado.
-            </span>
+            <div class="section-subtitle">
+              Ideal para conteúdo premium ou anúncio recompensado.
+            </div>
           </div>
         </div>
       </section>
@@ -1219,7 +243,7 @@
             <div class="feature-icon">🔮</div>
             <h3>Signo do dia</h3>
             <p>
-              Destaque especial com previsões rápidas e chamadas de retorno para amanhã.
+              Destaque diário com chamada forte para o usuário voltar amanhã.
             </p>
           </div>
 
@@ -1227,7 +251,7 @@
             <div class="feature-icon">💫</div>
             <h3>Frase cósmica</h3>
             <p>
-              Conteúdo compartilhável para aumentar engajamento e retenção orgânica.
+              Conteúdo compartilhável, emocional e ideal para aumentar engajamento.
             </p>
           </div>
 
@@ -1235,7 +259,7 @@
             <div class="feature-icon">🪐</div>
             <h3>Compatibilidade</h3>
             <p>
-              Uma das áreas com maior potencial de cliques e permanência dentro do app.
+              Uma das seções com maior potencial de cliques e permanência no app.
             </p>
           </div>
         </div>
@@ -1243,9 +267,9 @@
 
       <section class="section reveal">
         <div class="ad-card">
-          <h2 class="section-title" style="font-size:1.12rem;">Segundo ponto de monetização</h2>
+          <h2 class="section-title" style="font-size: 1.12rem;">Segundo ponto de monetização</h2>
           <p class="section-subtitle">
-            Ideal para interstitial trigger ou native ad entre blocos de conteúdo.
+            Ideal para native ad ou gatilho de interstitial entre seções.
           </p>
 
           <div
@@ -1256,8 +280,8 @@
           >
             <div>
               <strong>Native / Interstitial Trigger Area</strong>
-              <div>Área preparada para integração com AdMob no aplicativo final.</div>
-              <div class="ad-meta">ID sugerido: feed-native</div>
+              <div>Área preparada para monetização via camada nativa.</div>
+              <div class="ad-meta">slot: feed-native</div>
             </div>
           </div>
         </div>
@@ -1267,15 +291,40 @@
 
   <nav class="bottom-nav" aria-label="Navegação principal">
     <ul>
-      <li><a href="#home" class="active"><span class="nav-emoji">✨</span><span>Início</span></a></li>
-      <li><a href="#horoscopo"><span class="nav-emoji">♈</span><span>Horóscopo</span></a></li>
-      <li><a href="#frases"><span class="nav-emoji">💬</span><span>Frases</span></a></li>
-      <li><a href="#wallpapers"><span class="nav-emoji">🖼️</span><span>Wallpapers</span></a></li>
+      <li>
+        <a href="#home" class="active">
+          <span class="nav-emoji">✨</span>
+          <span>Início</span>
+        </a>
+      </li>
+      <li>
+        <a href="#horoscopo">
+          <span class="nav-emoji">♈</span>
+          <span>Horóscopo</span>
+        </a>
+      </li>
+      <li>
+        <a href="#frases">
+          <span class="nav-emoji">💬</span>
+          <span>Frases</span>
+        </a>
+      </li>
+      <li>
+        <a href="#wallpapers">
+          <span class="nav-emoji">🖼️</span>
+          <span>Wallpapers</span>
+        </a>
+      </li>
     </ul>
   </nav>
 
   <div class="modal" id="signModal" aria-hidden="true">
-    <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div
+      class="modal-sheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
       <div class="modal-head">
         <div class="modal-title-wrap">
           <div class="modal-symbol" id="modalSymbol">♈</div>
@@ -1284,6 +333,7 @@
             <p class="modal-sub" id="modalDates">21 mar — 19 abr</p>
           </div>
         </div>
+
         <button class="modal-close" id="modalClose" aria-label="Fechar">✕</button>
       </div>
 
@@ -1296,19 +346,19 @@
       <div class="forecast-grid">
         <div class="forecast-box">
           <strong>❤️ Amor</strong>
-          <p id="modalLove"></p>
+          <p id="modalLove">Carregando...</p>
         </div>
         <div class="forecast-box">
           <strong>💼 Trabalho</strong>
-          <p id="modalWork"></p>
+          <p id="modalWork">Carregando...</p>
         </div>
         <div class="forecast-box">
           <strong>🌿 Bem-estar</strong>
-          <p id="modalWellness"></p>
+          <p id="modalWellness">Carregando...</p>
         </div>
         <div class="forecast-box">
           <strong>🍀 Conselho</strong>
-          <p id="modalAdvice"></p>
+          <p id="modalAdvice">Carregando...</p>
         </div>
       </div>
 
@@ -1322,378 +372,6 @@
 
   <div class="toast" id="toast">Favorito salvo com sucesso ✨</div>
 
-  <script>
-    const signs = [
-      {
-        name: "Áries",
-        symbol: "♈",
-        dates: "21 mar — 19 abr",
-        vibe: "Coragem e atitude",
-        summary: "Hoje sua energia pede movimento, clareza e iniciativa. O melhor resultado vem quando você age com foco, não com pressa.",
-        love: "Conversas sinceras podem reacender a conexão. Evite impulsividade em temas delicados.",
-        work: "Momento favorável para tomar a frente de uma ideia e mostrar sua liderança.",
-        wellness: "Canalize sua energia em algo criativo ou em uma caminhada revigorante.",
-        advice: "Aja com coragem, mas escolha bem onde colocar sua força.",
-        color: "vermelho rubi"
-      },
-      {
-        name: "Touro",
-        symbol: "♉",
-        dates: "20 abr — 20 mai",
-        vibe: "Estabilidade e prazer",
-        summary: "O dia favorece conforto, constância e decisões práticas. Você cresce quando respeita seu tempo interno.",
-        love: "Gestos simples terão mais valor do que promessas grandiosas.",
-        work: "Boa fase para organizar finanças e estruturar tarefas com calma.",
-        wellness: "Desacelere. Seu corpo responde melhor ao cuidado do que à cobrança.",
-        advice: "A firmeza tranquila será sua maior vantagem hoje.",
-        color: "verde esmeralda"
-      },
-      {
-        name: "Gêmeos",
-        symbol: "♊",
-        dates: "21 mai — 20 jun",
-        vibe: "Ideias e movimento",
-        summary: "Seu brilho está na comunicação. Novas ideias surgem rápido, então anote tudo e escolha com inteligência.",
-        love: "Um diálogo leve pode abrir portas para mais intimidade.",
-        work: "Networking, mensagens e negociações ganham força no seu dia.",
-        wellness: "Evite excesso de estímulos; uma pausa estratégica clareia a mente.",
-        advice: "Nem toda ideia precisa virar ação imediatamente.",
-        color: "amarelo solar"
-      },
-      {
-        name: "Câncer",
-        symbol: "♋",
-        dates: "21 jun — 22 jul",
-        vibe: "Intuição e acolhimento",
-        summary: "Seu coração percebe mais do que os olhos mostram. Confie na sua sensibilidade, mas preserve seus limites.",
-        love: "A proximidade emocional cresce quando você expressa o que sente sem medo.",
-        work: "Escute sua intuição antes de aceitar compromissos desgastantes.",
-        wellness: "Procure ambientes tranquilos e pessoas que transmitam segurança.",
-        advice: "Cuidar de si também é um ato de amor.",
-        color: "prata lunar"
-      },
-      {
-        name: "Leão",
-        symbol: "♌",
-        dates: "23 jul — 22 ago",
-        vibe: "Brilho e presença",
-        summary: "Seu magnetismo está alto. Hoje você pode influenciar positivamente o ambiente quando age com generosidade.",
-        love: "Romance, carisma e reciprocidade favorecem encontros e reconexões.",
-        work: "Hora de mostrar talento sem exagerar no controle.",
-        wellness: "Faça algo que reacenda sua autoestima e te lembre do seu valor.",
-        advice: "Brilhe sem apagar ninguém.",
-        color: "dourado"
-      },
-      {
-        name: "Virgem",
-        symbol: "♍",
-        dates: "23 ago — 22 set",
-        vibe: "Ordem e clareza",
-        summary: "O dia combina com revisão, organização e pequenos ajustes que geram grandes resultados.",
-        love: "Mais escuta e menos cobrança: essa é a chave para relações mais leves.",
-        work: "Tarefas analíticas e planejamento estão favorecidos.",
-        wellness: "Seu bem-estar melhora quando você simplifica a rotina.",
-        advice: "Não transforme perfeição em peso.",
-        color: "bege claro"
-      },
-      {
-        name: "Libra",
-        symbol: "♎",
-        dates: "23 set — 22 out",
-        vibe: "Equilíbrio e charme",
-        summary: "Seu poder hoje está em harmonizar pessoas, ideias e escolhas. Elegância emocional será diferencial.",
-        love: "O afeto floresce quando há beleza, delicadeza e reciprocidade.",
-        work: "Negociações e decisões em parceria podem render bons frutos.",
-        wellness: "Invista em leveza, arte e um espaço visualmente agradável.",
-        advice: "Escolher a paz também é uma decisão poderosa.",
-        color: "rosa quartzo"
-      },
-      {
-        name: "Escorpião",
-        symbol: "♏",
-        dates: "23 out — 21 nov",
-        vibe: "Intensidade e transformação",
-        summary: "Hoje você enxerga o que está por trás das aparências. Use isso com sabedoria e não com desconfiança.",
-        love: "A profundidade emocional pode fortalecer vínculos reais.",
-        work: "Excelente momento para focar, investigar e concluir algo importante.",
-        wellness: "Liberte tensões em vez de guardá-las por dentro.",
-        advice: "Transformação começa quando você aceita sentir.",
-        color: "vinho profundo"
-      },
-      {
-        name: "Sagitário",
-        symbol: "♐",
-        dates: "22 nov — 21 dez",
-        vibe: "Expansão e entusiasmo",
-        summary: "Seu espírito busca novidade. O dia favorece liberdade, leveza e visão de futuro.",
-        love: "Conexões crescem quando há espontaneidade e verdade.",
-        work: "Bom para explorar novas possibilidades e sair do modo automático.",
-        wellness: "Seu corpo e mente pedem movimento, ar livre e horizonte.",
-        advice: "Siga em frente, mas com direção.",
-        color: "azul royal"
-      },
-      {
-        name: "Capricórnio",
-        symbol: "♑",
-        dates: "22 dez — 19 jan",
-        vibe: "Disciplina e construção",
-        summary: "Você está em sintonia com resultados sólidos. O dia favorece responsabilidade e estratégia.",
-        love: "A demonstração de compromisso vale mais que palavras vazias.",
-        work: "Assuntos profissionais importantes podem avançar com constância.",
-        wellness: "Descanse sem culpa: produtividade também depende de pausa.",
-        advice: "Consistência supera pressa.",
-        color: "grafite"
-      },
-      {
-        name: "Aquário",
-        symbol: "♒",
-        dates: "20 jan — 18 fev",
-        vibe: "Inovação e autenticidade",
-        summary: "Sua mente está original e voltada para o novo. O dia convida à liberdade com propósito.",
-        love: "Seja transparente sobre o que precisa para se sentir leve na relação.",
-        work: "Ideias diferentes podem gerar soluções brilhantes.",
-        wellness: "Faça algo fora da rotina para oxigenar a mente.",
-        advice: "Seu diferencial é justamente ser você.",
-        color: "turquesa"
-      },
-      {
-        name: "Peixes",
-        symbol: "♓",
-        dates: "19 fev — 20 mar",
-        vibe: "Sensibilidade e imaginação",
-        summary: "Sua percepção está refinada. O dia pede escuta interior, criatividade e gentileza com seus próprios limites.",
-        love: "A conexão emocional pode se aprofundar com ternura e presença real.",
-        work: "Confie no seu senso criativo, mas mantenha uma direção prática.",
-        wellness: "Música, descanso e silêncio podem renovar sua energia.",
-        advice: "Intuição também precisa de chão.",
-        color: "lavanda"
-      }
-    ];
-
-    const quotes = [
-      "A tua energia encontra o caminho quando o coração escolhe com coragem.",
-      "O universo sussurra para quem aprende a escutar com calma.",
-      "Nem toda resposta vem rápido; algumas chegam como luz suave.",
-      "Quem honra a própria essência atrai o que realmente combina.",
-      "A intuição floresce quando a mente desacelera."
-    ];
-
-    const signGrid = document.getElementById("signGrid");
-    const modal = document.getElementById("signModal");
-    const modalClose = document.getElementById("modalClose");
-    const toast = document.getElementById("toast");
-
-    const modalTitle = document.getElementById("modalTitle");
-    const modalSymbol = document.getElementById("modalSymbol");
-    const modalDates = document.getElementById("modalDates");
-    const modalSummary = document.getElementById("modalSummary");
-    const modalLove = document.getElementById("modalLove");
-    const modalWork = document.getElementById("modalWork");
-    const modalWellness = document.getElementById("modalWellness");
-    const modalAdvice = document.getElementById("modalAdvice");
-    const modalLuckyColor = document.getElementById("modalLuckyColor");
-
-    const featuredSignTitle = document.getElementById("featuredSignTitle");
-    const featuredSignText = document.getElementById("featuredSignText");
-    const dailyQuote = document.getElementById("dailyQuote");
-
-    function pickDailyContent() {
-      const day = new Date().getDate();
-      const sign = signs[day % signs.length];
-      const quote = quotes[day % quotes.length];
-
-      featuredSignTitle.textContent = `${sign.name} — ${sign.vibe}`;
-      featuredSignText.textContent = sign.summary;
-      dailyQuote.textContent = quote;
-    }
-
-    function renderSigns() {
-      signGrid.innerHTML = signs.map((sign, index) => `
-        <button
-          class="sign-card"
-          data-index="${index}"
-          aria-label="Abrir previsão de ${sign.name}"
-        >
-          <div class="sign-symbol">${sign.symbol}</div>
-          <strong>${sign.name}</strong>
-          <span>${sign.vibe}</span>
-        </button>
-      `).join("");
-
-      signGrid.querySelectorAll(".sign-card").forEach(card => {
-        card.addEventListener("click", () => openSignModal(Number(card.dataset.index)));
-      });
-    }
-
-    function openSignModal(index) {
-      const sign = signs[index];
-      modalTitle.textContent = sign.name;
-      modalSymbol.textContent = sign.symbol;
-      modalDates.textContent = sign.dates;
-      modalSummary.textContent = sign.summary;
-      modalLove.textContent = sign.love;
-      modalWork.textContent = sign.work;
-      modalWellness.textContent = sign.wellness;
-      modalAdvice.textContent = sign.advice;
-      modalLuckyColor.textContent = `Cor do dia: ${sign.color}`;
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-
-      // Hook opcional para analytics / native bridge
-      if (window.AstroApp && typeof window.AstroApp.onSignOpen === "function") {
-        window.AstroApp.onSignOpen(sign.name);
-      }
-    }
-
-    function closeModal() {
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    modalClose.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-
-    document.getElementById("btnExploreSigns").addEventListener("click", () => {
-      document.getElementById("horoscopo").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    document.getElementById("btnFavorite").addEventListener("click", () => {
-      showToast("Favorito salvo com sucesso ✨");
-    });
-
-    document.getElementById("btnShareSign").addEventListener("click", async () => {
-      const text = `${modalTitle.textContent} — ${modalSummary.textContent}`;
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: `Astro Diário - ${modalTitle.textContent}`,
-            text
-          });
-        } catch (_) {}
-      } else {
-        navigator.clipboard?.writeText(text);
-        showToast("Texto copiado para compartilhar ✨");
-      }
-    });
-
-    document.getElementById("btnShare").addEventListener("click", async () => {
-      const text = "Astro Diário ✨ Descubra sua previsão, frases cósmicas e wallpapers.";
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: "Astro Diário",
-            text,
-            url: location.href
-          });
-        } catch (_) {}
-      } else {
-        navigator.clipboard?.writeText(location.href);
-        showToast("Link copiado com sucesso 🔗");
-      }
-    });
-
-    document.getElementById("btnTheme").addEventListener("click", () => {
-      document.body.classList.toggle("alt-theme");
-      showToast("Atmosfera cósmica ajustada 🌙");
-    });
-
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(showToast._timer);
-      showToast._timer = setTimeout(() => toast.classList.remove("show"), 2200);
-    }
-
-    // Navegação ativa
-    const navLinks = document.querySelectorAll(".bottom-nav a");
-    const sections = [...document.querySelectorAll("main section[id]")];
-
-    const setActiveNav = () => {
-      let current = "home";
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 140) current = section.id;
-      });
-
-      navLinks.forEach(link => {
-        const active = link.getAttribute("href") === `#${current}`;
-        link.classList.toggle("active", active);
-      });
-    };
-
-    window.addEventListener("scroll", setActiveNav, { passive: true });
-    setActiveNav();
-
-    // Reveal on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-    pickDailyContent();
-    renderSigns();
-
-    // --- PREPARAÇÃO PARA ADMOB / APP WRAPPER ---
-    // Em HTML puro, o AdMob não roda como no app nativo.
-    // Esta estrutura serve para o app wrapper injetar anúncios nos containers.
-    window.AstroAds = {
-      slots: [
-        { id: "ad-slot-top", type: "banner", unit: "top-banner" },
-        { id: "ad-slot-bottom", type: "native", unit: "feed-native" }
-      ],
-      init() {
-        console.log("AstroAds pronto para integração nativa.");
-      },
-      renderFallback(slotId, label = "Anúncio") {
-        const el = document.getElementById(slotId);
-        if (!el) return;
-        el.innerHTML = `
-          <div>
-            <strong>${label}</strong>
-            <div>Área pronta para anúncio AdMob via camada nativa.</div>
-            <div class="ad-meta">slot: ${slotId}</div>
-          </div>
-        `;
-      },
-      track(eventName, payload = {}) {
-        console.log("Ad event:", eventName, payload);
-      }
-    };
-
-    window.AstroAds.init();
-
-    // Exemplo de ponte para apps web-to-app:
-    // Android pode expor algo como window.Android.showBanner("ad-slot-top")
-    // iOS pode usar window.webkit.messageHandlers.ads.postMessage(...)
-    // Aqui fica um disparo opcional:
-    function requestNativeAds() {
-      try {
-        if (window.Android && typeof window.Android.showBanner === "function") {
-          window.Android.showBanner("ad-slot-top");
-        }
-        if (window.webkit?.messageHandlers?.ads) {
-          window.webkit.messageHandlers.ads.postMessage({
-            action: "loadAds",
-            slots: window.AstroAds.slots
-          });
-        }
-      } catch (e) {
-        console.log("Native ads bridge not available.");
-      }
-    }
-
-    // Você pode chamar isso quando o app nativo estiver pronto:
-    document.addEventListener("DOMContentLoaded", requestNativeAds);
-  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
