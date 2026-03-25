@@ -5,7 +5,7 @@
 #    Monetize > App-ads.txt Validation
 # 3) Remova estes comentários antes da versão final, se quiser
 
-google.com, pub-SEU_PUBLISHER_ID_ADMOB, DIRECT, f08c47fec0942fa0
+google.com, google.com, pub-3274946720409347, DIRECT, f08c47fec0942fa0, DIRECT, f08c47fec0942fa0
 
 # Linhas adicionais do AppsGeyser (cole exatamente como aparecem no painel)
 # exemplo:
