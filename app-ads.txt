@@ -1,0 +1,13 @@
+# Astro Diário - app-ads.txt
+# IMPORTANTE:
+# 1) Substitua pub-SEU_PUBLISHER_ID pelo seu Publisher ID real do AdMob
+# 2) Cole abaixo TODAS as linhas adicionais fornecidas pelo AppsGeyser em:
+#    Monetize > App-ads.txt Validation
+# 3) Remova estes comentários antes da versão final, se quiser
+
+google.com, pub-SEU_PUBLISHER_ID_ADMOB, DIRECT, f08c47fec0942fa0
+
+# Linhas adicionais do AppsGeyser (cole exatamente como aparecem no painel)
+# exemplo:
+# dominio-da-rede.com, ID_DA_CONTA, DIRECT, ID_DA_AUTORIDADE
+# dominio-da-rede2.com, ID_DA_CONTA2, RESELLER, ID_DA_AUTORIDADE2
