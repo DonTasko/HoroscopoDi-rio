@@ -8,7 +8,7 @@
   ],
   "signs": [
     {
-      "name": "Áries",
+      "name": "Carneiro",
       "symbol": "♈",
       "dates": "21 mar — 19 abr",
       "vibe": "Coragem e atitude",
@@ -44,7 +44,7 @@
       "color": "amarelo solar"
     },
     {
-      "name": "Câncer",
+      "name": "Carangueijo",
       "symbol": "♋",
       "dates": "21 jun — 22 jul",
       "vibe": "Intuição e acolhimento",
@@ -80,7 +80,7 @@
       "color": "bege claro"
     },
     {
-      "name": "Libra",
+      "name": "Balança",
       "symbol": "♎",
       "dates": "23 set — 22 out",
       "vibe": "Equilíbrio e charme",
