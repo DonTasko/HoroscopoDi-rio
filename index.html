@@ -1,432 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
- <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
-<title>Astro Diário | Horóscopo diário, frases cósmicas e wallpapers</title>
-
-<meta
-  name="description"
-  content="Veja seu horóscopo diário, descubra frases cósmicas, compatibilidades e wallpapers em uma experiência moderna, responsiva e envolvente."
-/>
-<meta name="robots" content="index, follow, max-image-preview:large" />
-<meta name="author" content="Astro Diário" />
-<meta name="theme-color" content="#0b1020" />
-<meta name="application-name" content="Astro Diário" />
-<meta name="apple-mobile-web-app-title" content="Astro Diário" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="mobile-web-app-capable" content="yes" />
-
-<link rel="canonical" href="https://dontasko.github.io/HoroscopoDi-rio/" />
-
-<link rel="icon" href="/HoroscopoDi-rio/favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="/HoroscopoDi-rio/favicon-32x32.png" sizes="32x32" type="image/png" />
-<link rel="icon" href="/HoroscopoDi-rio/favicon-16x16.png" sizes="16x16" type="image/png" />
-<link rel="shortcut icon" href="/HoroscopoDi-rio/favicon.ico" />
-<link rel="apple-touch-icon" href="/HoroscopoDi-rio/apple-touch-icon.png" sizes="180x180" />
-<link rel="manifest" href="/HoroscopoDi-rio/manifest.json" />
-
-<meta property="og:locale" content="pt_BR" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Astro Diário" />
-<meta property="og:title" content="Astro Diário | Horóscopo diário, frases cósmicas e wallpapers" />
-<meta
-  property="og:description"
-  content="Descubra seu signo, veja previsões diárias e explore conteúdos cósmicos em uma experiência moderna e envolvente."
-/>
-<meta property="og:url" content="https://dontasko.github.io/HoroscopoDi-rio/" />
-<meta property="og:image" content="https://dontasko.github.io/HoroscopoDi-rio/android-chrome-512x512.png" />
-<meta property="og:image:alt" content="Ícone do Astro Diário com lua e estrelas" />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Astro Diário | Horóscopo diário, frases cósmicas e wallpapers" />
-<meta
-  name="twitter:description"
-  content="Veja seu horóscopo diário, frases cósmicas e wallpapers em uma app moderna e responsiva."
-/>
-<meta name="twitter:image" content="https://dontasko.github.io/HoroscopoDi-rio/android-chrome-512x512.png" />
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Astro Diário",
-  "url": "https://dontasko.github.io/HoroscopoDi-rio/",
-  "applicationCategory": "LifestyleApplication",
-  "operatingSystem": "Android, iOS, Web",
-  "browserRequirements": "Requires JavaScript",
-  "description": "Aplicação de horóscopo diário com frases cósmicas, compatibilidades e wallpapers em uma experiência moderna e responsiva.",
-  "inLanguage": "pt-BR",
-  "image": "https://dontasko.github.io/HoroscopoDi-rio/android-chrome-512x512.png",
-  "author": {
-    "@type": "Organization",
-    "name": "Astro Diário"
-  }
-}
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-  rel="stylesheet"
-/>
-
-<link rel="stylesheet" href="style.css" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Astro Diário</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">
-          <div class="brand-badge">✦</div>
-          <div class="brand-text">
+    <div class="app-shell">
+        <header class="topbar">
             <strong>Astro Diário</strong>
-            <span>Seu guia cósmico para todos os dias</span>
-          </div>
-        </div>
+        </header>
 
-        <div class="top-actions">
-          <button class="icon-btn" id="btnShare" aria-label="Compartilhar app">↗</button>
-          <button class="icon-btn" id="btnTheme" aria-label="Alternar tema">☾</button>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero reveal" id="home">
-        <div class="hero-copy">
-          <div class="eyebrow">🌙 Atualizado diariamente • energia cósmica em destaque</div>
-
-          <h1>
-            Seu universo começa com
-            <span class="gradient">um toque nas estrelas</span>
-          </h1>
-
-          <p>
-            Escolha seu signo, descubra sua previsão do dia, inspire-se com frases
-            cósmicas e explore conteúdos criados para fazer você voltar todos os dias.
-          </p>
-
-          <div class="hero-actions">
-            <button class="btn btn-primary" id="btnExploreSigns">Ver meu signo</button>
-            <a class="btn btn-secondary" href="#descobrir">Explorar agora</a>
-          </div>
-        </div>
-
-        <div class="hero-side">
-          <div class="daily-card glass-card">
-            <div class="label">✨ Previsão em destaque</div>
-            <strong id="featuredSignTitle">Carregando previsão...</strong>
-            <p id="featuredSignText">
-              Aguarde um instante enquanto carregamos a energia do dia.
-            </p>
-          </div>
-
-          <div class="mini-stats">
-            <div class="stat glass-card">
-              <strong>12</strong>
-              <span>signos</span>
-            </div>
-            <div class="stat glass-card">
-              <strong>+1</strong>
-              <span>frase do dia</span>
-            </div>
-            <div class="stat glass-card">
-              <strong>∞</strong>
-              <span>inspiração</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section grid-main">
-        <div class="sign-panel reveal" id="horoscopo">
-          <div class="section-header">
-            <div>
-              <h2 class="section-title">Horóscopo diário</h2>
-              <p class="section-subtitle">
-                Toque no seu signo para abrir sua leitura completa.
-              </p>
-            </div>
-            <a class="section-link" href="#frases">Ver frase do dia</a>
-          </div>
-
-          <div class="sign-grid" id="signGrid">
-            <div class="loading">Carregando signos...</div>
-          </div>
-        </div>
-
-        <aside class="aside-stack">
-          <div class="quote-card reveal" id="frases">
-            <div class="quote-mark">“</div>
-            <div class="quote-text" id="dailyQuote">
-              Carregando frase cósmica...
-            </div>
-            <div class="quote-meta">Frase cósmica do dia</div>
-          </div>
-
-          <div class="compat-card reveal">
-            <div class="section-header" style="margin-bottom: 8px;">
-              <div>
-                <h2 class="section-title" style="font-size: 1.12rem;">Compatibilidades</h2>
-                <p class="section-subtitle">Combinações energéticas em destaque</p>
-              </div>
-            </div>
-
-            <div class="compat-row">
-              <div class="compat-pair">
-                <div class="compat-badge">♈</div>
-                <div>
-                  <strong>Áries + Leão</strong>
-                  <div class="section-subtitle" style="margin: 2px 0 0;">química intensa</div>
+        <main>
+            <section class="hero">
+                <div class="daily-card">
+                    <strong id="featuredSignTitle">Carregando...</strong>
+                    <p id="featuredSignText">Sincronizando com as estrelas...</p>
                 </div>
-              </div>
-              <div class="compat-score">96%</div>
-            </div>
+            </section>
 
-            <div class="compat-row">
-              <div class="compat-pair">
-                <div class="compat-badge">♉</div>
-                <div>
-                  <strong>Touro + Virgem</strong>
-                  <div class="section-subtitle" style="margin: 2px 0 0;">conexão estável</div>
-                </div>
-              </div>
-              <div class="compat-score">93%</div>
-            </div>
+            <section id="horoscopo">
+                <div class="sign-grid" id="signGrid">
+                    </div>
+            </section>
+        </main>
 
-            <div class="compat-row">
-              <div class="compat-pair">
-                <div class="compat-badge">♓</div>
-                <div>
-                  <strong>Peixes + Câncer</strong>
-                  <div class="section-subtitle" style="margin: 2px 0 0;">sintonia emocional</div>
-                </div>
-              </div>
-              <div class="compat-score">98%</div>
-            </div>
-          </div>
-
-          <div class="ad-card reveal">
-            <h2 class="section-title" style="font-size: 1.12rem;">Espaço para anúncio</h2>
-            <p class="section-subtitle">
-              Área pronta para integração com AdMob via app wrapper.
-            </p>
-
-            <div
-              class="ad-slot"
-              id="ad-slot-top"
-              data-admob-slot="top-banner"
-              data-ad-type="banner"
-            >
-              <div>
-                <strong>AdMob Banner Placeholder</strong>
-                <div>Este bloco pode ser substituído por um banner nativo.</div>
-                <div class="ad-meta">slot: top-banner</div>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <section class="section reveal" id="wallpapers">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Wallpapers místicos</h2>
-            <p class="section-subtitle">
-              Conteúdo visual para aumentar retenção e engajamento no app.
-            </p>
-          </div>
-          <a class="section-link" href="#descobrir">Descobrir mais</a>
-        </div>
-
-        <div class="section-cards">
-          <div class="wallpaper-card">
-            <div class="wallpaper-preview"></div>
-            <strong>Lua dourada</strong>
-            <div class="section-subtitle">
-              Fundo cósmico com brilho astral e atmosfera suave.
-            </div>
-          </div>
-
-          <div class="wallpaper-card">
-            <div
-              class="wallpaper-preview"
-              style="background:
-                radial-gradient(circle at 25% 35%, rgba(255,255,255,.28), transparent 14%),
-                radial-gradient(circle at 78% 28%, rgba(246,196,83,.22), transparent 18%),
-                linear-gradient(135deg, #111935, #261850 62%, #0b1020);"
-            ></div>
-            <strong>Constelação violeta</strong>
-            <div class="section-subtitle">
-              Visual moderno com profundidade e contraste premium.
-            </div>
-          </div>
-
-          <div class="wallpaper-card">
-            <div
-              class="wallpaper-preview"
-              style="background:
-                radial-gradient(circle at 18% 24%, rgba(94,234,212,.2), transparent 18%),
-                radial-gradient(circle at 76% 18%, rgba(179,136,255,.28), transparent 20%),
-                linear-gradient(135deg, #0f1732, #111c42 54%, #070b16);"
-            ></div>
-            <strong>Energia noturna</strong>
-            <div class="section-subtitle">
-              Ideal para conteúdo premium ou anúncio recompensado.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal" id="descobrir">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Descobrir</h2>
-            <p class="section-subtitle">
-              Seções extras para enriquecer o app e aumentar retorno diário.
-            </p>
-          </div>
-        </div>
-
-        <div class="section-cards">
-          <div class="feature-card">
-            <div class="feature-icon">🔮</div>
-            <h3>Signo do dia</h3>
-            <p>
-              Destaque diário com chamada forte para o usuário voltar amanhã.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">💫</div>
-            <h3>Frase cósmica</h3>
-            <p>
-              Conteúdo compartilhável, emocional e ideal para aumentar engajamento.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">🪐</div>
-            <h3>Compatibilidade</h3>
-            <p>
-              Uma das seções com maior potencial de cliques e permanência no app.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal">
-        <div class="ad-card">
-          <h2 class="section-title" style="font-size: 1.12rem;">Segundo ponto de monetização</h2>
-          <p class="section-subtitle">
-            Ideal para native ad ou gatilho de interstitial entre seções.
-          </p>
-
-          <div
-            class="ad-slot"
-            id="ad-slot-bottom"
-            data-admob-slot="feed-native"
-            data-ad-type="native"
-          >
-            <div>
-              <strong>Native / Interstitial Trigger Area</strong>
-              <div>Área preparada para monetização via camada nativa.</div>
-              <div class="ad-meta">slot: feed-native</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <nav class="bottom-nav" aria-label="Navegação principal">
-    <ul>
-      <li>
-        <a href="#home" class="active">
-          <span class="nav-emoji">✨</span>
-          <span>Início</span>
-        </a>
-      </li>
-      <li>
-        <a href="#horoscopo">
-          <span class="nav-emoji">♈</span>
-          <span>Horóscopo</span>
-        </a>
-      </li>
-      <li>
-        <a href="#frases">
-          <span class="nav-emoji">💬</span>
-          <span>Frases</span>
-        </a>
-      </li>
-      <li>
-        <a href="#wallpapers">
-          <span class="nav-emoji">🖼️</span>
-          <span>Wallpapers</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="modal" id="signModal" aria-hidden="true">
-    <div
-      class="modal-sheet"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modalTitle"
-    >
-      <div class="modal-head">
-        <div class="modal-title-wrap">
-          <div class="modal-symbol" id="modalSymbol">♈</div>
-          <div>
-            <h2 id="modalTitle">Áries</h2>
-            <p class="modal-sub" id="modalDates">21 mar — 19 abr</p>
-          </div>
-        </div>
-
-        <button class="modal-close" id="modalClose" aria-label="Fechar">✕</button>
-      </div>
-
-      <div class="full-box">
-        <p id="modalSummary">
-          Hoje sua energia pede movimento, clareza e coragem para iniciar algo novo.
-        </p>
-      </div>
-
-      <div class="forecast-grid">
-        <div class="forecast-box">
-          <strong>❤️ Amor</strong>
-          <p id="modalLove">Carregando...</p>
-        </div>
-        <div class="forecast-box">
-          <strong>💼 Trabalho</strong>
-          <p id="modalWork">Carregando...</p>
-        </div>
-        <div class="forecast-box">
-          <strong>🌿 Bem-estar</strong>
-          <p id="modalWellness">Carregando...</p>
-        </div>
-        <div class="forecast-box">
-          <strong>🍀 Conselho</strong>
-          <p id="modalAdvice">Carregando...</p>
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button class="btn btn-primary" id="btnFavorite">Salvar favorito</button>
-        <button class="btn btn-secondary" id="btnShareSign">Compartilhar signo</button>
-        <span class="chip" id="modalLuckyColor">Cor do dia: violeta</span>
-      </div>
+        <nav class="bottom-nav">
+            <ul>
+                <li><a href="#home">✨ Início</a></li>
+                <li><a href="#horoscopo">♈ Signos</a></li>
+            </ul>
+        </nav>
     </div>
-  </div>
 
-  <div class="toast" id="toast">Favorito salvo com sucesso ✨</div>
+    <div class="modal" id="signModal">
+        <div class="modal-sheet">
+            <div class="modal-head">
+                <div class="modal-title-wrap">
+                    <span id="modalSymbol" class="modal-symbol"></span>
+                    <div>
+                        <h2 id="modalTitle">Signo</h2>
+                        <p id="modalDates"></p>
+                    </div>
+                </div>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="modalSummary" class="main-summary"></p>
+                <div class="forecast-grid">
+                    <div class="forecast-box"><strong>❤️ Amor</strong><p id="modalLove"></p></div>
+                    <div class="forecast-box"><strong>💼 Trabalho</strong><p id="modalWork"></p></div>
+                    <div class="forecast-box"><strong>🌿 Saúde</strong><p id="modalWellness"></p></div>
+                    <div class="forecast-box"><strong>🍀 Conselho</strong><p id="modalAdvice"></p></div>
+                </div>
+                <div id="modalLuckyColor" class="lucky-badge"></div>
+            </div>
+        </div>
+    </div>
 
-  <script src="script.js" defer></script>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
 </body>
 </html>
