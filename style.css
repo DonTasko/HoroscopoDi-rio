@@ -1,11 +1,8 @@
-/* --- 1. RESET E VARIÁVEIS --- */
+/* --- RESET GERAL --- */
 :root {
-  --bg-color: #0b1020;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --accent-color: #7c4dff;
-  --text-main: #ffffff;
-  --text-dim: #a0a0c0;
-  --safe-area-bottom: env(safe-area-inset-bottom);
+  --bg-dark: #0b1020;
+  --accent: #7c4dff;
+  --glass: rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -15,41 +12,31 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+body, html {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-dark);
+  color: white;
   font-family: 'Inter', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* --- 2. ESTRUTURA DA APP --- */
-.app-shell {
-  padding-bottom: 80px; /* Espaço para a bottom nav */
-}
-
-.gradient {
-  background: linear-gradient(135deg, #7c4dff, #00d2ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* --- 3. MODAL (O TEU POPUP CORRIGIDO) --- */
+/* --- ESTRUTURA DO MODAL (O TEU POPUP) --- */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  width: 100vw; /* Força a largura total do visor */
+  height: 100vh; /* Força a altura total do visor */
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
-  align-items: flex-end; /* Alinha à base no mobile */
+  align-items: flex-end; /* Coloca o conteúdo na base */
   justify-content: center;
-  z-index: 10000;
+  z-index: 99999;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease-in-out;
-  backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .modal.open {
@@ -57,112 +44,114 @@ body {
   visibility: visible;
 }
 
+/* A FOLHA QUE SOBE (SHEET) */
 .modal-sheet {
   background: #161b2e;
-  width: 100%; /* Ocupa a largura toda */
-  max-width: 500px; /* Limite para ecrãs maiores */
-  max-height: 85vh; /* Não tapa o ecrã todo, permite ver o fundo */
-  border-radius: 32px 32px 0 0; /* Arredondado estilo Android nativo */
-  padding: 24px;
+  width: 100%; /* Ocupa 100% da largura do telemóvel */
+  max-width: 100%; /* Garante que não há limites laterais */
+  min-height: 70vh; /* Força uma altura mínima de 70% do ecrã */
+  max-height: 90vh; /* No máximo 90% para não tapar o topo */
+  border-radius: 30px 30px 0 0;
+  padding: 25px;
   position: relative;
   overflow-y: auto;
-  transform: translateY(100%); /* Começa escondido em baixo */
+  
+  /* Animação de subir */
+  transform: translateY(100%);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+  
+  /* Sombra para dar profundidade */
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
 }
 
 .modal.open .modal-sheet {
-  transform: translateY(0); /* Desliza para cima */
+  transform: translateY(0); /* Sobe para a posição visível */
 }
 
+/* CONTEÚDO INTERNO DO MODAL */
 .modal-head {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 15px;
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .modal-symbol {
-  font-size: 2.5rem;
-  margin-right: 15px;
+  font-size: 3rem;
 }
 
 .modal-close {
   background: rgba(255,255,255,0.1);
   border: none;
   color: white;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  font-size: 1.2rem;
-  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* --- 4. GRID DE PREVISÕES DENTRO DO MODAL --- */
+/* GRID DE PREVISÕES (AMOR, TRABALHO, ETC) */
 .forecast-grid {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Duas colunas */
-  gap: 12px;
-  margin: 20px 0;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .forecast-box {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass);
+  padding: 15px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .forecast-box strong {
   display: block;
-  font-size: 0.9rem;
-  color: var(--accent-color);
+  color: var(--accent);
   margin-bottom: 5px;
+  font-size: 0.9rem;
 }
 
 .forecast-box p {
   font-size: 0.85rem;
-  color: var(--text-dim);
+  line-height: 1.4;
+  color: #ccc;
 }
 
-/* --- 5. GRID DE SIGNOS (ECRÃ PRINCIPAL) --- */
+/* --- RESTO DO LAYOUT --- */
 .sign-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas de ícones */
-  gap: 15px;
-  padding: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 15px;
 }
 
 .sign-card {
-  background: var(--card-bg);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--glass);
   border-radius: 20px;
   padding: 15px;
   text-align: center;
-  transition: transform 0.2s;
-  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-.sign-card:active {
-  transform: scale(0.95); /* Feedback de clique */
-}
-
-.sign-symbol {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: 8px;
-}
-
-/* --- 6. NAVEGAÇÃO INFERIOR --- */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: rgba(11, 16, 32, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 12px 0 calc(12px + var(--safe-area-bottom));
-  border-top: 1px solid rgba(255,255,255,0.05);
-  z-index: 9000;
+  background: rgba(11, 16, 32, 0.98);
+  padding: 15px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .bottom-nav ul {
@@ -172,41 +161,12 @@ body {
 }
 
 .bottom-nav a {
+  color: #888;
   text-decoration: none;
-  color: var(--text-dim);
-  font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .bottom-nav a.active {
-  color: var(--accent-color);
-}
-
-/* --- 7. TOAST NOTIFICAÇÃO --- */
-.toast {
-  position: fixed;
-  bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #333;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  z-index: 11000;
-  display: none;
-}
-
-.toast.show {
-  display: block;
-  animation: fadeInOut 2.2s forwards;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translate(-50%, 20px); }
-  15% { opacity: 1; transform: translate(-50%, 0); }
-  85% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -20px); }
+  color: var(--accent);
 }
