@@ -4,11 +4,11 @@ async function loadData() {
     try {
         const t = new Date().getTime();
         const resp = await fetch(`./signos.json?t=${t}`);
-        if (!resp.ok) throw new Error("Não encontrei o arquivo signos.json");
         APP_DATA = await resp.json();
         render();
+        initAds(); // Chama a função de anúncios
     } catch (e) {
-        alert("Erro crítico: " + e.message);
+        console.error("Erro ao carregar dados", e);
     }
 }
 
@@ -21,9 +21,10 @@ function render() {
         </div>
     `).join('');
     
-    // Conteúdo destaque
-    document.getElementById("featuredSignTitle").textContent = APP_DATA.signs[0].name;
-    document.getElementById("featuredSignText").textContent = APP_DATA.signs[0].summary;
+    const day = new Date().getDate();
+    const featured = APP_DATA.signs[day % APP_DATA.signs.length];
+    document.getElementById("featuredSignTitle").textContent = featured.name + " em destaque";
+    document.getElementById("featuredSignText").textContent = featured.summary;
 }
 
 function openModal(i) {
@@ -36,13 +37,28 @@ function openModal(i) {
     document.getElementById("modalWork").textContent = s.work;
     document.getElementById("modalWellness").textContent = s.wellness;
     document.getElementById("modalAdvice").textContent = s.advice;
-    document.getElementById("modalLuckyColor").textContent = "Cor: " + s.color;
+    document.getElementById("modalLuckyColor").textContent = "Cor do dia: " + s.color;
 
     document.getElementById("signModal").classList.add("open");
+    
+    // Notificar Android que abrimos um signo (útil para analytics/ads)
+    if(window.Android) window.Android.showInterstitial(); 
 }
 
 document.getElementById("modalClose").onclick = () => {
     document.getElementById("signModal").classList.remove("open");
 };
+
+// INTEGRAÇÃO COM ANDROID STUDIO (ADMOB)
+function initAds() {
+    try {
+        if (window.Android) {
+            window.Android.loadBanner("ad-slot-top");
+            window.Android.loadBanner("ad-slot-bottom");
+        }
+    } catch (e) {
+        console.log("Interface Android não detectada");
+    }
+}
 
 loadData();
