@@ -9,59 +9,45 @@
 </head>
 <body>
     <div class="app-shell">
-        <header class="topbar">
-            <strong>Astro Diário</strong>
-        </header>
+        <div id="ad-slot-top" class="ad-slot">Espaço Publicitário</div>
 
-        <main>
-            <section class="hero">
-                <div class="daily-card">
-                    <strong id="featuredSignTitle">Carregando...</strong>
-                    <p id="featuredSignText">Sincronizando com as estrelas...</p>
-                </div>
-            </section>
+        <section class="hero">
+            <div class="daily-card">
+                <strong id="featuredSignTitle">---</strong>
+                <p id="featuredSignText">Sincronizando constelações...</p>
+            </div>
+        </section>
 
-            <section id="horoscopo">
-                <div class="sign-grid" id="signGrid">
-                    </div>
-            </section>
-        </main>
+        <div class="sign-grid" id="signGrid"></div>
 
-        <nav class="bottom-nav">
-            <ul>
-                <li><a href="#home">✨ Início</a></li>
-                <li><a href="#horoscopo">♈ Signos</a></li>
-            </ul>
-        </nav>
+        <div id="ad-slot-bottom" class="ad-slot" style="min-height: 100px;">Publicidade</div>
     </div>
 
     <div class="modal" id="signModal">
         <div class="modal-sheet">
             <div class="modal-head">
-                <div class="modal-title-wrap">
+                <div style="display:flex; align-items:center;">
                     <span id="modalSymbol" class="modal-symbol"></span>
                     <div>
-                        <h2 id="modalTitle">Signo</h2>
-                        <p id="modalDates"></p>
+                        <h2 id="modalTitle">---</h2>
+                        <p id="modalDates" style="color:var(--text-dim); font-size:0.8rem;"></p>
                     </div>
                 </div>
                 <button class="modal-close" id="modalClose">✕</button>
             </div>
             
-            <div class="modal-body">
-                <p id="modalSummary" class="main-summary"></p>
-                <div class="forecast-grid">
-                    <div class="forecast-box"><strong>❤️ Amor</strong><p id="modalLove"></p></div>
-                    <div class="forecast-box"><strong>💼 Trabalho</strong><p id="modalWork"></p></div>
-                    <div class="forecast-box"><strong>🌿 Saúde</strong><p id="modalWellness"></p></div>
-                    <div class="forecast-box"><strong>🍀 Conselho</strong><p id="modalAdvice"></p></div>
-                </div>
-                <div id="modalLuckyColor" class="lucky-badge"></div>
+            <p id="modalSummary" style="margin-bottom:20px;"></p>
+
+            <div class="forecast-grid">
+                <div class="forecast-box"><strong>❤️ Amor</strong><p id="modalLove"></p></div>
+                <div class="forecast-box"><strong>💼 Trabalho</strong><p id="modalWork"></p></div>
+                <div class="forecast-box"><strong>🌿 Saúde</strong><p id="modalWellness"></p></div>
+                <div class="forecast-box"><strong>🍀 Conselho</strong><p id="modalAdvice"></p></div>
             </div>
+            <p id="modalLuckyColor" style="text-align:center; color:var(--accent); font-weight:bold;"></p>
         </div>
     </div>
 
-    <div id="toast" class="toast"></div>
     <script src="script.js"></script>
 </body>
 </html>
