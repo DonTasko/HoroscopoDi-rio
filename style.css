@@ -1,172 +1,45 @@
-/* --- RESET GERAL --- */
-:root {
-  --bg-dark: #0b1020;
-  --accent: #7c4dff;
-  --glass: rgba(255, 255, 255, 0.05);
-}
+:root { --bg: #0b1020; --card: #161b2e; --accent: #7c4dff; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
+.app-shell { padding: 20px; padding-bottom: 100px; }
+.topbar { padding: 20px 0; font-size: 1.2rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
-body, html {
-  width: 100%;
-  height: 100%;
-  background-color: var(--bg-dark);
-  color: white;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-}
+/* GRID DE SIGNOS */
+.sign-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+.sign-card { background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 15px; text-align: center; color: white; border: none; cursor: pointer; }
+.sign-symbol { font-size: 2rem; display: block; }
 
-/* --- ESTRUTURA DO MODAL (O TEU POPUP) --- */
+/* MODAL FORÇADO */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw; /* Força a largura total do visor */
-  height: 100vh; /* Força a altura total do visor */
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: flex-end; /* Coloca o conteúdo na base */
-  justify-content: center;
-  z-index: 99999;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-  backdrop-filter: blur(10px);
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none; /* JS vai mudar para 'flex' */
+    align-items: flex-end;
+    z-index: 9999;
+    backdrop-filter: blur(10px);
 }
+.modal.open { display: flex; }
 
-.modal.open {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* A FOLHA QUE SOBE (SHEET) */
 .modal-sheet {
-  background: #161b2e;
-  width: 100%; /* Ocupa 100% da largura do telemóvel */
-  max-width: 100%; /* Garante que não há limites laterais */
-  min-height: 70vh; /* Força uma altura mínima de 70% do ecrã */
-  max-height: 90vh; /* No máximo 90% para não tapar o topo */
-  border-radius: 30px 30px 0 0;
-  padding: 25px;
-  position: relative;
-  overflow-y: auto;
-  
-  /* Animação de subir */
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  
-  /* Sombra para dar profundidade */
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+    background: var(--card);
+    width: 100%;
+    min-height: 80vh;
+    border-radius: 30px 30px 0 0;
+    padding: 25px;
+    overflow-y: auto;
+    animation: slideUp 0.4s ease;
 }
 
-.modal.open .modal-sheet {
-  transform: translateY(0); /* Sobe para a posição visível */
-}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-/* CONTEÚDO INTERNO DO MODAL */
-.modal-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 15px;
-}
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.forecast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+.forecast-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; font-size: 0.8rem; }
+.forecast-box strong { color: var(--accent); display: block; margin-bottom: 4px; }
+.modal-close { background: #333; border: none; color: white; width: 35px; height: 35px; border-radius: 50%; }
 
-.modal-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.modal-symbol {
-  font-size: 3rem;
-}
-
-.modal-close {
-  background: rgba(255,255,255,0.1);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* GRID DE PREVISÕES (AMOR, TRABALHO, ETC) */
-.forecast-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Duas colunas */
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.forecast-box {
-  background: var(--glass);
-  padding: 15px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.forecast-box strong {
-  display: block;
-  color: var(--accent);
-  margin-bottom: 5px;
-  font-size: 0.9rem;
-}
-
-.forecast-box p {
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: #ccc;
-}
-
-/* --- RESTO DO LAYOUT --- */
-.sign-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding: 15px;
-}
-
-.sign-card {
-  background: var(--glass);
-  border-radius: 20px;
-  padding: 15px;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: rgba(11, 16, 32, 0.98);
-  padding: 15px 0;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.bottom-nav ul {
-  display: flex;
-  justify-content: space-around;
-  list-style: none;
-}
-
-.bottom-nav a {
-  color: #888;
-  text-decoration: none;
-  font-size: 0.8rem;
-  text-align: center;
-}
-
-.bottom-nav a.active {
-  color: var(--accent);
-}
+.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; padding: 20px; z-index: 1000; }
+.bottom-nav ul { display: flex; justify-content: space-around; list-style: none; }
+.bottom-nav a { color: #888; text-decoration: none; font-size: 0.9rem; }
